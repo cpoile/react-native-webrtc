@@ -536,7 +536,9 @@ export default class RTCPeerConnection extends defineCustomEventTarget(...PEER_C
                 return;
             }
 
-            log.debug(`${this._peerConnectionId} onremovetrack`);
+            log.debug(`${this._peerConnectionId} onremovetrack <><> cpoile`);
+
+            let track: MediaStreamTrack;
 
             // Based on the W3C specs https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection-removetrack,
             // we need to remove the track from any media streams
@@ -545,7 +547,15 @@ export default class RTCPeerConnection extends defineCustomEventTarget(...PEER_C
                 const trackIdx = stream._tracks.findIndex(t => t.id === ev.trackId);
 
                 if (trackIdx !== -1) {
+                    track = stream._tracks[trackIdx];
                     stream._tracks.splice(trackIdx, 1);
+
+                    const eventData = {
+                        track,
+                    };
+
+                    // @ts-ignore
+                    this.dispatchEvent(eventData);
                 }
             }
         });
