@@ -550,12 +550,8 @@ export default class RTCPeerConnection extends defineCustomEventTarget(...PEER_C
                     track = stream._tracks[trackIdx];
                     stream._tracks.splice(trackIdx, 1);
 
-                    const eventData = {
-                        track,
-                    };
-
                     // @ts-ignore
-                    this.dispatchEvent(new RTCTrackEvent('removetrack', eventData));
+                    this.dispatchEvent({ type: 'removetrack', track });
                 }
             }
         });
