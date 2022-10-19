@@ -555,7 +555,7 @@ export default class RTCPeerConnection extends defineCustomEventTarget(...PEER_C
                     };
 
                     // @ts-ignore
-                    this.dispatchEvent(eventData);
+                    this.dispatchEvent(new RTCTrackEvent('removetrack', eventData));
                 }
             }
         });
